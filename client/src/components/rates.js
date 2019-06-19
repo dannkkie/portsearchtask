@@ -20,7 +20,15 @@ class Rates extends Component {
 
         console.log(fromdate, todate);
 
-    axios.get(`/api/ports/${origin}/${destination}/${fromdate}/${todate}`)
+        var fD = new Date(fromdate);
+        var fDate = fD.toISOString();
+
+        var tD = new Date(todate);
+        var tDate = tD.toISOString();
+
+        console.log(fDate, tDate);
+
+    axios.get(`/api/rates/${origin}/${destination}/${fDate}/${tDate}`)
             .then(res => {
                 console.log(res.data);
             })
