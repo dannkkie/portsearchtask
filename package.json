@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "build": "webpack --config webpack.config.js --mode development",
-    "start": "node ./bin/www",
+    "client": "cd client && npm start",
+    "start": "nodemon ./bin/www",
+    "dev": "concurrently --kill-others-on-fail \"npm run start\" \"npm run client\"",
     "watch": "npm run build -- --watch & nodemon npm start"
   },
   "dependencies": {
@@ -33,6 +35,7 @@
     "@babel/plugin-syntax-import-meta": "^7.2.0",
     "@babel/preset-env": "^7.3.4",
     "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.5"
+    "babel-loader": "^8.0.5",
+    "concurrently": "^4.1.0"
   }
 }
