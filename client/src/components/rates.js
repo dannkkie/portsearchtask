@@ -1,12 +1,22 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { Component } from 'react';
+import axios from 'axios';
+import {
+    Charts,
+    ChartContainer,
+    ChartRow,
+    YAxis,
+    LineChart,
+    styler
+  } from "react-timeseries-charts";
+import { TimeSeries, Index } from "pondjs";
 
 class Rates extends Component {
     state = {
         origin: "",
         destination: "",
         fromdate: "",
-        todate: ""
+        todate: "",
+        data: []
     }
 
     handleChange = e => {
@@ -14,7 +24,7 @@ class Rates extends Component {
     }
 
     onSubmit = e => {
-        e.preventDefault()
+        e.preventDefault();
 
         const { origin, destination, fromdate, todate  } = this.state;
 
@@ -28,9 +38,10 @@ class Rates extends Component {
 
         console.log(fDate, tDate);
 
-    axios.get(`/api/rates/${origin}/${destination}/${fDate}/${tDate}`)
+        axios.get(`/api/rates/${origin}/${destination}/${fDate}/${tDate}`)
             .then(res => {
-                console.log(res.data);
+                console.log(res.data.rates);
+                this.setState({ data: res.data.rates });
             })
             .catch(err => {
                 console.log(err);
@@ -39,7 +50,22 @@ class Rates extends Component {
 
 
     render() {
+        const series = new TimeSeries({
+            name: "Rates of Shipping",
+            columns: ["index", "precip"],
+            points: this.state.data.map(([d, value]) => [
+              Index.getIndexString("1h", new Date(d)),
+              value
+            ])
+          });
 
+          const style = styler([
+            {
+              key: "precip",
+              color: "#A5C8E1",
+              selected: "#2CB1CF"
+            }
+          ]);
         return (
             <div>
                 <h2>Rates Time Series</h2>
@@ -50,6 +76,39 @@ class Rates extends Component {
                     <input onChange={this.handleChange} value={this.state.todate} type="date" name="todate" min="2018-06-30" /> 
                     <input onSubmit="" type="submit" value="Submit"/>
                 </form>
+
+                <div>
+                    {
+                        this.state.data[0] === undefined ? (
+                            null
+                        ) : (
+                            <ChartContainer timeRange={series.timerange()} width={800}>
+                                <ChartRow height="400">
+                                    <YAxis
+                                    id="rates"
+                                    label="Rates"
+                                    min={0}
+                                    max={3000}
+                                    format=",.2f"
+                                    width="70"
+                                    type="linear"
+                                    />
+                                    <Charts>
+                                        <LineChart
+                                            axis="rates"
+                                            breakLine={false}
+                                            style={style}
+                                            columns={["precip"]}
+                                            series={series}
+                                            interpolation="curveBasis"
+                                            />
+                                    </Charts>
+                                </ChartRow>
+                            </ChartContainer>
+                        )
+                    }
+                    
+                </div>
             </div>
         )
     }
