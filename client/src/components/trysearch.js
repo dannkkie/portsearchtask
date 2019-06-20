@@ -25,7 +25,7 @@ class Trysearch extends Component {
     axios.get(`/api/ports/${search}`)
             .then(res => {
                 console(res.data);
-                const arrName = res.data
+                // const arrName = res.data
             })
             .catch(err => {
                 console.log(err);
