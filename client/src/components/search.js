@@ -14,6 +14,7 @@ class Search extends Component {
         e.preventDefault()
 
         const { search } = this.state;
+    
 
     axios.get(`/api/ports/${search}`)
             .then(res => {
@@ -23,7 +24,6 @@ class Search extends Component {
                 console.log(err);
             });
     };
-
 
     render() {
 
