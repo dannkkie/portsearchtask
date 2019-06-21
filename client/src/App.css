@@ -1,0 +1,39 @@
+.jumbotron {
+    /* background-color:#FF0066;  */
+    background-image: url("https://www.seanergymaritime.com/en/img/slider-bgN.jpg");
+    background-size: cover;
+    color: #FFF;
+    opacity: 0.7;
+}
+
+.btn-default {
+    font-family: Raleway-SemiBold;
+    font-size: 20px;
+    color: white;
+    letter-spacing: 1px;
+    line-height: 15px;
+    border: 2px;
+  /*   border-radius: 40px; */
+    background: #FF5733;
+    transition: all 0.3s ease 0s;
+    width: 200px;
+    height: 50px;
+
+
+  }
+
+  .btn-primary:hover {
+    color: #FFF;
+    background: #E98A76;
+    border: 2px;
+
+  }
+
+
+h1, p {
+    text-align: center;
+}
+
+.form {
+    padding-bottom: 50px;
+}

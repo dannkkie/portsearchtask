@@ -58,3 +58,9 @@ class Rates extends Component {
 
 export default Rates
 
+// {/* <form onClick={this.onClick}>
+//                     <input onChange={this.handleChange} value={this.state.search} type="text" name='search' placeholder="Search..."/>
+//                     {/* <input onSubmit="" type="submit" value="Submit"/> */}
+//                     <Button color="primary" onClick="" >Search</Button>
+//                 </form> */}
+

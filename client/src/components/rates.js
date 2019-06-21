@@ -9,6 +9,7 @@ import {
     styler
   } from "react-timeseries-charts";
 import { TimeSeries, Index } from "pondjs";
+import { Button, Form, FormGroup, Input, Col, Row, Label } from 'reactstrap';
 
 class Rates extends Component {
     state = {
@@ -46,6 +47,8 @@ class Rates extends Component {
             .catch(err => {
                 console.log(err);
             });
+
+            this.setState({ origin: "", destination: "", fromdate: "", todate: "" });
     };
 
 
@@ -68,14 +71,50 @@ class Rates extends Component {
           ]);
         return (
             <div>
-                <h2>Rates Time Series</h2>
-                <form onSubmit={this.onSubmit}>
-                    <input onChange={this.handleChange} value={this.state.origin} type="text" name='origin' placeholder="Search origin..."/>
-                    <input onChange={this.handleChange} value={this.state.destination} type="text" name='destination' placeholder="Search destination..."/>
-                    <input onChange={this.handleChange} value={this.state.fromdate} type="date" name="fromdate" max="2017-08-30" />
-                    <input onChange={this.handleChange} value={this.state.todate} type="date" name="todate" min="2018-06-30" /> 
-                    <input onSubmit="" type="submit" value="Submit"/>
-                </form>
+                <Form onSubmit={this.onSubmit} className="form">
+                    <Row form>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="origin">Origin</Label>
+                                <Input onChange={this.handleChange}
+                                    value={this.state.origin}
+                                    type="text"
+                                    name="origin" id="origin" placeholder="Enter origin..." />
+                            </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="destination">Destination</Label>
+                                <Input onChange={this.handleChange}
+                                    value={this.state.destination}
+                                    type="text"
+                                    name="destination" id="destination" placeholder="Enter destination..." />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row form>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="froomdate">From</Label>
+                                <Input onChange={this.handleChange}
+                                    value={this.state.fromdate}
+                                    type="date"
+                                    name="fromdate" id="fromdate" max="2017-08-30" />
+                            </FormGroup>
+                        </Col>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label for="toodate">To</Label>
+                                <Input onChange={this.handleChange}
+                                    value={this.state.todate}
+                                    type="date"
+                                    name="todate" id="todate" min="2018-08-30" />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    
+                    <Button color="primary" onSubmit="" className="btn-default">Submit</Button>
+                </Form>
 
                 <div>
                     {
@@ -83,7 +122,7 @@ class Rates extends Component {
                             null
                         ) : (
                             <ChartContainer timeRange={series.timerange()} width={800}>
-                                <ChartRow height="400">
+                                <ChartRow height="300">
                                     <YAxis
                                     id="rates"
                                     label="Rates"
