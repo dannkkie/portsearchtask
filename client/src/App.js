@@ -19,10 +19,6 @@ class App extends Component {
             </Container>
           </Jumbotron>
         </section>
-        {/* <Row>
-          <Col sm={{ size: 'auto', offset: 1 }}><Search /></Col>
-          <Col sm={{ size: 'auto', offset: 1 }}><FreeSearch /></Col>
-        </Row> */}
         <Row>
           <Col sm="12" md={{ size: 6, offset: 3 }}><Rates /></Col>
         </Row>
